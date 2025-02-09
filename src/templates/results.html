@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Voting Results - E-Voting{% endblock %}
+{% block content %}
+  <div class="text-center">
+    <h1 class="mb-4">Voting Results</h1>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <canvas id="resultsChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Include Chart.js from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Data passed from Flask route
+    const labels = {{ labels|tojson }};
+    const dataValues = {{ values|tojson }};
+    
+    // Predefined colors for each candidate (adjust or extend as needed)
+    const backgroundColors = [
+      'rgba(255, 99, 132, 0.6)',
+      'rgba(54, 162, 235, 0.6)',
+      'rgba(255, 206, 86, 0.6)',
+      'rgba(75, 192, 192, 0.6)',
+      'rgba(153, 102, 255, 0.6)',
+      'rgba(255, 159, 64, 0.6)'
+    ];
+    const borderColors = [
+      'rgba(255, 99, 132, 1)',
+      'rgba(54, 162, 235, 1)',
+      'rgba(255, 206, 86, 1)',
+      'rgba(75, 192, 192, 1)',
+      'rgba(153, 102, 255, 1)',
+      'rgba(255, 159, 64, 1)'
+    ];
+    
+    // Use as many colors as there are labels
+    const usedBackgroundColors = backgroundColors.slice(0, labels.length);
+    const usedBorderColors = borderColors.slice(0, labels.length);
+
+    const ctx = document.getElementById('resultsChart').getContext('2d');
+    const resultsChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: dataValues,
+          backgroundColor: usedBackgroundColors,
+          borderColor: usedBorderColors,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              precision: 0
+            }
+          }
+        }
+      }
+    });
+  </script>
+{% endblock %}

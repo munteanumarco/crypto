@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Home - E-Voting{% endblock %}
+{% block content %}
+  <div class="text-center">
+    <h1 class="mb-4">Welcome to the E-Voting System</h1>
+    <p>
+      <a class="btn btn-primary me-2" href="{{ url_for('register') }}">Register</a>
+      <a class="btn btn-secondary" href="{{ url_for('login') }}">Login & Vote</a>
+    </p>
+  </div>
+{% endblock %}

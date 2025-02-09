@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Thank You - E-Voting{% endblock %}
+{% block content %}
+  <div class="text-center">
+    <h1 class="mb-4">Thank you for voting!</h1>
+    <a href="{{ url_for('index') }}" class="btn btn-primary">Return Home</a>
+  </div>
+{% endblock %}
