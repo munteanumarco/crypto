@@ -4,7 +4,9 @@ from models.db import UsersDb
 
 
 class IdentificationServer:
-    def __init__(self, host='localhost', port=65430, db_file='voting_db.sqlite'):
+    def __init__(
+        self, host="localhost", port=65430, db_file="voting_db.sqlite"
+    ):
         self.host = host
         self.port = port
         self.db = UsersDb(db_file)
@@ -42,7 +44,8 @@ class IdentificationServer:
 
             if not (cnp and first_name and last_name):
                 conn.sendall(
-                    b"[IDServer] Missing required fields for registration")
+                    b"[IDServer] Missing required fields for registration"
+                )
                 return
 
             try:
