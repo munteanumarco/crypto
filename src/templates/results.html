@@ -14,11 +14,9 @@
   <!-- Include Chart.js from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Data passed from Flask route
     const labels = {{ labels|tojson }};
     const dataValues = {{ values|tojson }};
     
-    // Predefined colors for each candidate (adjust or extend as needed)
     const backgroundColors = [
       'rgba(255, 99, 132, 0.6)',
       'rgba(54, 162, 235, 0.6)',
@@ -36,7 +34,6 @@
       'rgba(255, 159, 64, 1)'
     ];
     
-    // Use as many colors as there are labels
     const usedBackgroundColors = backgroundColors.slice(0, labels.length);
     const usedBorderColors = borderColors.slice(0, labels.length);
 
