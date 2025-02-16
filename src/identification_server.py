@@ -37,7 +37,7 @@ class IdentificationServer:
 
         action = request.get("action")
         if action == "REGISTER":
-            # Expecting "cnp", "first_name", "last_name"
+            # Expecting "cnp", "first_name", "last_name" in plaintext.
             cnp = request.get("cnp")
             first_name = request.get("first_name")
             last_name = request.get("last_name")
@@ -49,13 +49,13 @@ class IdentificationServer:
                 return
 
             try:
-                # Register the citizen and generate a PIN
+                # The UsersDb.register_citizen method will handle hashing.
                 pin = self.db.register_citizen(cnp, first_name, last_name)
                 # Return the PIN to the client
                 response = {"status": "OK", "pin": pin}
                 conn.sendall(pickle.dumps(response))
             except ValueError as e:
-                # If the citizen is already registered or other error
+                # If the citizen is already registered or other error occurs.
                 response = {"status": "ERROR", "message": str(e)}
                 conn.sendall(pickle.dumps(response))
         else:
